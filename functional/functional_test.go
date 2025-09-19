@@ -52,9 +52,14 @@ func TestDateFunctions(t *testing.T) {
 		want ast.Constant
 	}{
 		{ast.ApplyFn{symbols.DateFromString, []ast.BaseTerm{ast.String("2023-10-06")}}, dateConst("2023-10-06")},
+		{ast.ApplyFn{symbols.Date, []ast.BaseTerm{ast.String("2023-10-06")}}, dateConst("2023-10-06")},
 		{ast.ApplyFn{symbols.DateToString, []ast.BaseTerm{dateConst("2023-10-06")}}, ast.String("2023-10-06")},
 		{
 			ast.ApplyFn{symbols.DateFromParts, []ast.BaseTerm{ast.Number(2023), ast.Number(10), ast.Number(6)}},
+			dateConst("2023-10-06"),
+		},
+		{
+			ast.ApplyFn{symbols.DateParts, []ast.BaseTerm{ast.Number(2023), ast.Number(10), ast.Number(6)}},
 			dateConst("2023-10-06"),
 		},
 		{
@@ -89,6 +94,15 @@ func TestDateFunctions(t *testing.T) {
 	}
 	if _, err := EvalExpr(ast.ApplyFn{symbols.DateAddDays, []ast.BaseTerm{ast.String("not-a-date"), ast.Number(1)}}, ast.ConstSubstMap{}); err == nil {
 		t.Fatalf("EvalExpr date add days accepted invalid input")
+	}
+	if _, err := EvalExpr(ast.ApplyFn{symbols.Date, []ast.BaseTerm{}}, ast.ConstSubstMap{}); err == nil {
+		t.Fatalf("EvalExpr fn:date accepted wrong arity")
+	}
+	if _, err := EvalExpr(ast.ApplyFn{symbols.Date, []ast.BaseTerm{ast.Number(2023)}}, ast.ConstSubstMap{}); err == nil {
+		t.Fatalf("EvalExpr fn:date accepted non-string input")
+	}
+	if _, err := EvalExpr(ast.ApplyFn{symbols.DateParts, []ast.BaseTerm{ast.Number(2023), ast.Number(10)}}, ast.ConstSubstMap{}); err == nil {
+		t.Fatalf("EvalExpr fn:date/3 accepted wrong arity")
 	}
 }
 

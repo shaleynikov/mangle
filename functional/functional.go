@@ -336,6 +336,40 @@ func EvalApplyFn(applyFn ast.ApplyFn, subst ast.Subst) (ast.Constant, error) {
 
 		return ast.String(val.Symbol), nil
 
+	case symbols.Date.Symbol:
+		switch len(evaluatedArgs) {
+		case 1:
+			val := evaluatedArgs[0]
+			if val.Type != ast.StringType {
+				return ast.Constant{}, fmt.Errorf("cannot convert to date: fn:date() expects ast.StringType type when called with 1 argument")
+			}
+			parsed, err := ast.ParseDate(val.Symbol)
+			if err != nil {
+				return ast.Constant{}, err
+			}
+			return parsed, nil
+		case 3:
+			year, err := evaluatedArgs[0].NumberValue()
+			if err != nil {
+				return ast.Constant{}, err
+			}
+			month, err := evaluatedArgs[1].NumberValue()
+			if err != nil {
+				return ast.Constant{}, err
+			}
+			day, err := evaluatedArgs[2].NumberValue()
+			if err != nil {
+				return ast.Constant{}, err
+			}
+			date, err := ast.DateFromParts(int(year), int(month), int(day))
+			if err != nil {
+				return ast.Constant{}, err
+			}
+			return date, nil
+		default:
+			return ast.Constant{}, fmt.Errorf("fn:date() expects 1 or 3 arguments, got %d argument(s)", len(evaluatedArgs))
+		}
+
 	case symbols.DateFromString.Symbol:
 		if l := len(evaluatedArgs); l != 1 {
 			return ast.Constant{}, fmt.Errorf("expected 1 argument, got %d argument(s)", l)
