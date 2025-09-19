@@ -69,9 +69,10 @@ time zones.
 Dates are commonly constructed with the built-ins described in
 [`spec_builtin_operations.md`](spec_builtin_operations.md):
 
-- `fn:date:from_string("2023-10-06")` parses ISO-8601 strings.
-- `fn:date:from_parts(2023, 10, 6)` creates a date from its numeric
-  year/month/day components.
+- `fn:date("2023-10-06")` or `fn:date:from_string("2023-10-06")` parses
+  ISO-8601 strings.
+- `fn:date(2023, 10, 6)` or `fn:date:from_parts(2023, 10, 6)` creates a date
+  from its numeric year/month/day components.
 - `fn:date:to_string(@2023-10-06)` returns the ISO representation as a string.
 
 The resulting constants can be stored in facts, compared for equality, and used

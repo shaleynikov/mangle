@@ -38,12 +38,12 @@ Mangle provides helpers for working with `/date` constants.  All dates are
 expressed in ISO-8601 calendar form (YYYY-MM-DD) and represent a calendar day in
 UTC without a time-of-day component.
 
-- `fn:date:from_string(String)` parses an ISO-8601 date string and returns a
-  `/date` value.  Invalid strings (wrong format or impossible dates) produce a
-  runtime error.
-- `fn:date:from_parts(Year, Month, Day)` constructs a date from numeric parts.
-  Each argument must be a number; the function validates that the combination is
-  a real calendar date.
+- `fn:date(String)` (alias `fn:date:from_string(String)`) parses an ISO-8601
+  date string and returns a `/date` value.  Invalid strings (wrong format or
+  impossible dates) produce a runtime error.
+- `fn:date(Year, Month, Day)` (alias `fn:date:from_parts(Year, Month, Day)`)
+  constructs a date from numeric parts.  Each argument must be a number; the
+  function validates that the combination is a real calendar date.
 - `fn:date:to_string(Date)` converts a `/date` constant back into its ISO-8601
   string form.
 

@@ -85,6 +85,8 @@ var (
 		symbols.NumberToString:  symbols.NewFunType(ast.StringBound /* <= */, ast.NumberBound),
 		symbols.Float64ToString: symbols.NewFunType(ast.StringBound /* <= */, ast.Float64Bound),
 		symbols.NameToString:    symbols.NewFunType(ast.StringBound /* <= */, ast.NameBound),
+		symbols.Date:            symbols.NewFunType(ast.DateBound /* <= */, ast.StringBound),
+		symbols.DateParts:       symbols.NewFunType(ast.DateBound /* <= */, ast.NumberBound, ast.NumberBound, ast.NumberBound),
 		symbols.DateFromString:  symbols.NewFunType(ast.DateBound /* <= */, ast.StringBound),
 		symbols.DateToString:    symbols.NewFunType(ast.StringBound /* <= */, ast.DateBound),
 		symbols.DateFromParts:   symbols.NewFunType(ast.DateBound /* <= */, ast.NumberBound, ast.NumberBound, ast.NumberBound),

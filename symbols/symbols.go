@@ -163,6 +163,10 @@ var (
 	Float64ToString = ast.FunctionSym{"fn:float64:to_string", 1}
 	// NameToString converts from ast.NameType to ast.StringType
 	NameToString = ast.FunctionSym{"fn:name:to_string", 1}
+	// Date is an alias for parsing ISO-8601 strings.
+	Date = ast.FunctionSym{"fn:date", 1}
+	// DateParts is an alias for constructing a date from its components.
+	DateParts = ast.FunctionSym{"fn:date", 3}
 	// DateFromString converts from string to date.
 	DateFromString = ast.FunctionSym{"fn:date:from_string", 1}
 	// DateToString converts a date into its ISO-8601 representation.
